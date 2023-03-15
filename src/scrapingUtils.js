@@ -1,7 +1,7 @@
-import * as cheerio from "cheerio";
-import { getHtmlResponse } from "./crawler.js";
-import logger from "./logger.js";
-import { bookAnchorSelector, paginationSelector } from "./selectors.js";
+import * as cheerio from 'cheerio';
+import { getHtmlResponse } from './crawler.js';
+import logger from './logger.js';
+import { bookAnchorSelector, paginationSelector } from './selectors.js';
 import {
   extractBookCategory,
   extractBookDescription,
@@ -9,10 +9,10 @@ import {
   extractBookProductInfo,
   extractBookRating,
   extractBookTitle,
-} from "./dataExtractors.js";
-import * as path from "path";
-import { downloadAsset } from "./commonUtils.js";
-import { CatalogPageCountNotFoundError } from "./errors.js";
+} from './dataExtractors.js';
+import * as path from 'path';
+import { downloadAsset } from './commonUtils.js';
+import { CatalogPageCountNotFoundError } from './errors.js';
 
 /**
  * Given the base URL of the website to scrape, the catalog page URLs are
@@ -73,7 +73,7 @@ const constructBookPageUrlsInCatalogPage = async (catalogPageUrl, baseUrl) => {
     .reduce(
       // Construct book details page URL from each book link
       (result, element) => {
-        const elementHref = $(element).attr("href");
+        const elementHref = $(element).attr('href');
         if (elementHref) {
           result.urls.push(new URL(`catalogue/${elementHref}`, baseUrl).href);
         } else {

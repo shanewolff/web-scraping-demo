@@ -1,12 +1,12 @@
-import * as dotenv from "dotenv";
-import logger from "./logger.js";
+import * as dotenv from 'dotenv';
+import logger from './logger.js';
 import {
   constructAllBookPageUrls,
   constructCatalogPageUrls,
   downloadBookImages,
   extractAllBookInfo,
-} from "./scrapingUtils.js";
-import { getDuration, writeToJsonFile } from "./commonUtils.js";
+} from './scrapingUtils.js';
+import { getDuration, writeToJsonFile } from './commonUtils.js';
 
 // Configure dotenv
 dotenv.config();
@@ -18,7 +18,7 @@ dotenv.config();
  * @returns {Promise<Object[]>} A promise which resolves a list of book data
  */
 const executeBookScrapingJob = async (baseUrl, outputFilePath) => {
-  logger.info("Book data scraping job started");
+  logger.info('Book data scraping job started');
 
   // The job starting time
   const start = performance.now();
@@ -61,18 +61,18 @@ const executeBookScrapingJob = async (baseUrl, outputFilePath) => {
  * @returns {Promise<void>} A promise which downloads and saves assets
  */
 const downloadAssets = async (bookData, dataDirectory) => {
-  logger.info("Book data asset download job started");
+  logger.info('Book data asset download job started');
   const start = performance.now();
   const imageData = bookData.map((datum) => ({
     url: datum.imageUrl,
-    identifier: datum.productInfo.find((item) => item.key === "UPC").value,
+    identifier: datum.productInfo.find((item) => item.key === 'UPC').value,
   }));
   logger.info(
     `Number of assets scheduled to be downloaded: ${imageData.length}`
   );
   let rejectedPromises = 0;
   (await downloadBookImages(imageData, dataDirectory)).forEach((result) => {
-    if (result.status === "rejected") {
+    if (result.status === 'rejected') {
       ++rejectedPromises;
       logger.error(result.reason.message);
     }
@@ -89,8 +89,8 @@ const downloadAssets = async (bookData, dataDirectory) => {
   );
 };
 
-const BASE_URL = "http://books.toscrape.com";
-const DATA_DIR = process.env.DATA_DIR ?? "data";
+const BASE_URL = 'http://books.toscrape.com';
+const DATA_DIR = process.env.DATA_DIR ?? 'data';
 let bookData;
 try {
   bookData = await executeBookScrapingJob(

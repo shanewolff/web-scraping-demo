@@ -1,4 +1,4 @@
-import winston, { format, transports } from "winston";
+import winston, { format, transports } from 'winston';
 
 const { printf, combine, timestamp, json } = format;
 const { File, Console } = transports;
@@ -19,21 +19,21 @@ const customFileLogFormat = combine(timestamp(), json());
 
 // Define a logger instance
 const logger = winston.createLogger({
-  level: "debug",
+  level: 'debug',
   format: json(),
   // Add two separate transports for combined logs and error logs
   transports: [
     new File({
-      filename: "logs/error.log",
-      level: "error",
+      filename: 'logs/error.log',
+      level: 'error',
       format: customFileLogFormat,
     }),
-    new File({ filename: "logs/combined.log", format: customFileLogFormat }),
+    new File({ filename: 'logs/combined.log', format: customFileLogFormat }),
   ],
 });
 
 // If the environment is not production, add logs to console as well
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== 'production') {
   logger.add(
     new Console({
       format: combine(timestamp(), customConsoleLogFormat),

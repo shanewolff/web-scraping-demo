@@ -1,8 +1,8 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import { FileWriteError } from "./errors.js";
-import * as path from "path";
-import { getAssetStream } from "./crawler.js";
-import { createWriteStream } from "fs";
+import { mkdir, writeFile } from 'node:fs/promises';
+import { FileWriteError } from './errors.js';
+import * as path from 'path';
+import { getAssetStream } from './crawler.js';
+import { createWriteStream } from 'fs';
 
 /**
  * Persist given JSON data in the specified file path
@@ -14,7 +14,7 @@ import { createWriteStream } from "fs";
 export const writeToJsonFile = async (filePath, data) => {
   try {
     await mkdir(path.dirname(filePath), { recursive: true });
-    await writeFile(filePath, JSON.stringify(data), "utf8");
+    await writeFile(filePath, JSON.stringify(data), 'utf8');
     return true;
   } catch (error) {
     throw new FileWriteError(filePath);
@@ -38,8 +38,8 @@ export const downloadAsset = async (assetUrl, filePath) => {
   const writer = createWriteStream(filePath);
   dataStream.pipe(writer);
   return new Promise((resolve, reject) => {
-    writer.on("finish", () => resolve(true));
-    writer.on("error", () => reject(new FileWriteError(filePath)));
+    writer.on('finish', () => resolve(true));
+    writer.on('error', () => reject(new FileWriteError(filePath)));
   });
 };
 

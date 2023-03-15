@@ -1,6 +1,6 @@
-import axios from "axios";
-import axiosRetry from "axios-retry";
-import { NoResponseError, UnsuccessfulResponseError } from "./errors.js";
+import axios from 'axios';
+import axiosRetry from 'axios-retry';
+import { NoResponseError, UnsuccessfulResponseError } from './errors.js';
 
 axiosRetry(axios, { retries: 3 });
 
@@ -30,7 +30,7 @@ export const getHtmlResponse = async (url) => {
  */
 export const getAssetStream = async (assetUrl) => {
   try {
-    const response = await axios.get(assetUrl, { responseType: "stream" });
+    const response = await axios.get(assetUrl, { responseType: 'stream' });
     if (response.status === 200) {
       return response.data;
     }
